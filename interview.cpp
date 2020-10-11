@@ -90,27 +90,6 @@ int main()
         cin >> ID;
         pos = L.insertA(pos, ID);
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
     }
     for (i = 0; i < n; i++)
         cout << L.remove(t--);
