@@ -40,7 +40,7 @@ public:
     search(Rank e);
 }
 template <typename T>
-void List<T>::init()
+void List<T>::init()//初始化
 {
     header = new ListNode<T>;
     trailer = new ListNode<T>;
@@ -48,54 +48,69 @@ void List<T>::init()
     trailer->succ = NULL; trailer->pred = header;
     _size = 0;
 }
-template <typename T>
-T& List<T>::operator[] (Rank r) const
-{
-    ListNodePosi(T) p = first();
-    while (0 < r--) p = p->succ;
-    return p->data;
-}
-template <typename T>
-ListNodePosi(T) List<T>::insertA (ListNodePosi(T) p, T const& e)
-{
-    _size++; return p->insertAsSucc(e);
-}
-// template <typename T>
-// ListNodePosi(T) List<T>::insertA ( ListNodePosi(T) p, T const& e)
-// {
-//     _size++; return p->insertAsSucc(e);
-// }
-template <typename T>T List<T>::remove(ListNodePosi(T) p)
-{
-    T e = p->data;
-    p->pred->succ = p->succ; p->succ->pred = p->pred;
-    delete p; _size--;
-    return e;
-}
-ListNodePosi(T) template <typename T> List<T>::search(Rank e)
-{
-
-}
-template <typename T>List<T>::~List()
+template <typename T>List<T>::~List()//析构
 {
     int oldsize = _size;
     while (0 < _size) remove(header->succ);
     delete header;
     delete trailer;
 }
+template <typename T>
+T& List<T>::operator[] (Rank r) const//重载[]运算符
+{
+    ListNodePosi(T) p = first();
+    while (0 < r--) p = p->succ;
+    return p->data;
+}
+template <typename T>
+ListNodePosi(T) List<T>::insertA (ListNodePosi(T) p, T const& e)//后插入
+{
+    _size++; return p->insertAsSucc(e);
+}
+
+template <typename T> T List<T>::remove(ListNodePosi(T) p)//删除
+{
+    T e = p->data;
+    p->pred->succ = p->succ; p->succ->pred = p->pred;
+    delete p; _size--;
+    return e;
+}
+
 int main()
 {
     sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int n, m, t;
-    t = 0;
-    cin >> n;
+    int n, m, ID;
+    cin >> n >> m;
     List<int> L;
+    ListNodePosi(int) pos = new ListNode<int>;
     for (i = 0; i < n; i++)
     {
-        cin >> m;
-        t = L.insertA((m % i + t) % i, m);
+        cin >> ID;
+        pos = L.insertA(pos, ID);
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
     }
     for (i = 0; i < n; i++)
         cout << L.remove(t--);
