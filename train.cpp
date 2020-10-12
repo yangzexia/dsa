@@ -46,17 +46,21 @@ int main(){
             cout << "No\n"; return 0;
         }
 
-        if((head != NULL) && (top() == temp)){
-            pop();
-            cin >> temp;
-            out[i] = 1;
-            len--;
+        if(head != NULL){
+            if (top() == temp) {
+                pop();
+                cin >> temp;
+                out[i] = 1;
+                len--;
+            }
+            else {
+                push(count++);
+                out[i] = 0;
+                len++;
+            } 
+            
+
         }
-        else{
-            push(count++);
-            out[i] = 0;
-            len++;
-        } 
     }
     if (head != NULL) {
         cout << "No\n";
