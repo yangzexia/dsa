@@ -57,9 +57,7 @@ int main(){
                 push(count++);
                 out[i] = 0;
                 len++;
-            } 
-            
-
+            }
         }
     }
     if (head != NULL) {
