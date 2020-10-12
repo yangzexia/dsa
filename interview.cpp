@@ -3,7 +3,7 @@
 using namespace std;
 
 #typedef int Rank;
-#define ListNodePosi(T) listNode<T>*
+#define ListNodePosi(T) ListNode<T>*
 template <typename T> struct ListNode{
     T data; ListNodePosi(T) pred; ListNodePosi(T) succ;
     ListNode() {}
@@ -25,6 +25,7 @@ template <typename T> ListNodePosi(T) ListNode<T>::insertAsSucc(T const& e)
     succ->pred = x; succ = x;
     return x;
 }
+
 template <typename T> class <T> List
 {
 private:
@@ -35,10 +36,13 @@ public:
     List() {init();}
     List( List<T> const& L);
     ~List();
+    ListNodePosi(T) first() const {return header->succ;}
+    ListNodePosi(T) last() const {return trailer->pred;}
     int insertA(<T> const& e);
     remove(ListNodePosi<T> p);
     search(Rank e);
 }
+
 template <typename T>
 void List<T>::init()//初始化
 {
@@ -68,7 +72,8 @@ ListNodePosi(T) List<T>::insertA (ListNodePosi(T) p, T const& e)//后插入
     _size++; return p->insertAsSucc(e);
 }
 
-template <typename T> T List<T>::remove(ListNodePosi(T) p)//删除
+template <typename T> 
+T List<T>::remove(ListNodePosi(T) p)//删除
 {
     T e = p->data;
     p->pred->succ = p->succ; p->succ->pred = p->pred;
@@ -82,37 +87,26 @@ int main()
     cin.tie(nullptr);
     cout.tie(nullptr);
     int n, m, ID;
+    int temp,insertPosi = 0;
     cin >> n >> m;
     List<int> L;
-    ListNodePosi(int) pos = new ListNode<int>;
-    for (i = 0; i < n; i++)
+    L.first() = new ListNode<int>;
+    pos = L.first();
+    cin >> pos->data;
+    for (i = 1; i < n; i++)
     {
         cin >> ID;
         pos = L.insertA(pos, ID);
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+        temp =(insertPosi + m) % i;
+        while(temp--)
+        {
+            if(i > temp)
+                pos = pos->pred;
+            else
+                pos = pos->succ;
+        }
     }
-    for (i = 0; i < n; i++)
-        cout << L.remove(t--);
+    while(n--)
+        cout << L.remove(pos);
     return 0;
 }
