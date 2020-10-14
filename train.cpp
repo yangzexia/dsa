@@ -37,34 +37,47 @@ int main(){
     
     cin >> n >> m;
 
-    int* out = new int[n];
+    int* out = new int[2*n];
     int count = 1;
+    int num = 0;
 
-    cin >> temp;
-    for(int i = 0; i < 2*n + 1; i++){
-        if(len > m){
-            cout << "No\n"; return 0;
-        }
-
-        if(head != NULL){
+    for(int i = 0; i < n; i++){
+        cin >> temp;
+        while (count <= n) {
+            
             if (top() == temp) {
                 pop();
-                cin >> temp;
-                out[i] = 1;
+                out[num++] = 1;
                 len--;
+                break;
             }
-            else {
-                push(count++);
-                out[i] = 0;
-                len++;
+            push(count++);
+            out[num++] = 0;
+            len++;
+            if (len > m) {
+                cout << "No\n"; return 0;
+            }
+            if (top() == temp) {
+                pop();
+                out[num++] = 1;
+                len--;
+                break;
             }
         }
+
+        if (count > n && top() == temp){ 
+            out[num++] = 1;
+            pop();
+            len--;
+        }
     }
+
+ 
     if (head != NULL) {
         cout << "No\n";
         return 0;
     }
-    for (int i = 0; i < n; i++){
+    for (int i = 0; i < 2*n; i++){
         out[i] == 1 ? cout << "pop\n" : cout << "push\n";
     }
     delete[] out;
