@@ -4,7 +4,6 @@ import time
 from pymongo import MongoClient
 
 url = "http://mp.weixin.qq.com/mp/profile_ext"
-# （公众号不让添加主页链接，xxx表示profile_ext)
 
 # Mongo配置
 conn = MongoClient("127.0.0.1", 27017)

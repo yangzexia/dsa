@@ -18,4 +18,4 @@ with conn:
         url.append(url_list["content_url"])
 
 res = requests.get(url[1])
-print(url[1])
+print(res.decode("utf-8"))
