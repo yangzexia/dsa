@@ -1,7 +1,9 @@
+import sys
 import requests
 import json
 import time
 from pymongo import MongoClient
+
 
 url = "http://mp.weixin.qq.com/mp/profile_ext"
 
@@ -11,7 +13,9 @@ db = conn.wx  # 连接wx数据库，没有则自动创建
 mongo_wx = db.article  # 使用article集合，没有则自动创建
 
 
-def get_wx_article(cfg, index=0, count=10):
+data = []
+
+def get_wx_article(argv, cfg, index=0, count=10):
     offset = (index + 1) * count
     params = {
         "__biz": cfg.biz,
@@ -54,15 +58,25 @@ def get_wx_article(cfg, index=0, count=10):
             # 发布时间
             datetime = i["comm_msg_info"]["datetime"]
             datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime(datetime))
-
-            mongo_wx.insert(
-                {
-                    "title": title,
-                    "content_url": content_url,
-                    "cover": cover,
-                    "datetime": datetime,
-                }
-            )
+            # 使用数据库
+            if argv[1] == '1':
+                mongo_wx.insert(
+                    {
+                        "title": title,
+                        "content_url": content_url,
+                        "cover": cover,
+                        "datetime": datetime,
+                    }
+                )
+            # 使用json文件
+            else:
+                data.append({
+                        "title": title,
+                        "content_url": content_url,
+                        "cover": cover,
+                        "datetime": datetime,
+                    
+                })
         if can_msg_continue == 1:
             return True
         return False
@@ -81,9 +95,12 @@ if __name__ == "__main__":
     index = 0
     while 1:
         print(f"开始抓取公众号第{index + 1} 页文章.")
-        # print(cfg.uin)
-        flag = get_wx_article(cfg, index=index)
+        flag = get_wx_article(sys.argv, cfg, index=index)
         # 防止和谐，暂停8秒
+
+        if sys.argv[1] != 1:
+            with open('data.json', 'w') as fw:
+                json.dump(data,fw)
         time.sleep(8)
         index += 1
         if not flag:
