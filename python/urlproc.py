@@ -1,5 +1,6 @@
 import json
 import time
+import requests
 from pymongo import MongoClient
 
 conn = MongoClient("127.0.0.1", 27017)
@@ -16,4 +17,5 @@ with conn:
     for url_list in urls:
         url.append(url_list["content_url"])
 
-print(url)
+res = requests.get(url[1])
+print(url[1])
