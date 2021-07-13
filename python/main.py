@@ -3,8 +3,9 @@ import requests
 from bs4 import BeautifulSoup
 
 if __name__ == "__main__":
+
     pattern = "显示器"  # 支持正则表达式
-    url = "https://mp.weixin.qq.com/s?__biz=MzA4NTcxNjQ2Nw==&amp;mid=2650095082&amp;idx=1&amp;sn=95dbe0b48ab001d8194e363f9ff8887c&amp;chksm=87d22176b0a5a860bf753a1f2c6d37d61bbaf9795f9612a6393a9b67d5c568d6064f69ce4c5d&amp;scene=27#wechat_redirect"
+    # url = "http://mp.weixin.qq.com/s?__biz=MzA4NTcxNjQ2Nw==&amp;mid=2650093804&amp;idx=1&amp;sn=1e53280973d78b80bf29ec0e73f55678&amp;chksm=87d22470b0a5ad66c422917638bef4eca569d3948540f24afc5ec3aed6aa94e9dae892d6821e&amp;scene=27#wechat_redirect"
 
     res = requests.get(url)
     content = res.content.decode()
